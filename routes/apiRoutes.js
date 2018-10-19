@@ -6,4 +6,20 @@ module.exports = function (app) {
   app.get('/', function (req, res) {
     res.render('home');
   });
+
+  app.get("/api/headlines?saved=false", function(req, res){
+
+  });
+
+  app.get("/api/headlines/:id", function(req, res){
+
+  });
+
+  app.get("/api/fetch", function(req, res){
+
+  });
+
+  app.get("api/clear", function(req, res){
+
+  });
 }

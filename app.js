@@ -19,9 +19,8 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
-app.get('/', function (req, res) {
-    res.render('home');
-});
+// Routes
+require('./routes/apiRoutes')(app)
 
 var PORT = process.env.PORT || 3000;
 app.listen(PORT, function() {

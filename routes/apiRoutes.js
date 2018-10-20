@@ -22,4 +22,12 @@ module.exports = function (app) {
   app.get("api/clear", function(req, res){
 
   });
+
+  app.get("/api/notes/:id", function(req, res){
+
+  });
+
+  app.get("/api/notes", function(req, res){
+
+  });
 }

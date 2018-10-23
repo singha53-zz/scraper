@@ -15,7 +15,7 @@ module.exports = function (app) {
   });
   // saved pages
   app.get('/saved', function (req, res) {
-    res.render('home');
+    res.render('saved');
   });
 
   app.get("/api/headlines/:id", function(req, res){

@@ -18,8 +18,12 @@ module.exports = function (app) {
     res.render('saved');
   });
 
-  app.get("/api/headlines/:id", function(req, res){
-
+  // save article to database by changed saved field to true
+  app.put("/api/headlines/:id", function(req, res){
+  db.Article.updateOne({id: req.body._id},{$set: {saved:true}})
+  .catch(err => {
+    console.log(err)
+  })
   });
 
   // scrape articles
@@ -70,16 +74,7 @@ module.exports = function (app) {
     console.log(req.query.saved)
     console.log(req.body)
     if(req.query.saved === true){
-      db.Article.findOneAndUpdate(req.body)
-    .then(function(dbArticle) {
-      // If we were able to successfully find Articles, send them back to the client
-      console.log(dbArticle)
-      res.json(dbArticle);
-    })
-    .catch(function(err) {
-      // If an error occurred, send it to the client
-      res.json(err);
-    });
+     
     } else {
    db.Article.find({saved: false})
     .then(function(dbArticle) {

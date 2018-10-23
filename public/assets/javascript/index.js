@@ -11,7 +11,7 @@ $(document).ready(function() {
   function initPage() {
     // Run an AJAX request for any unsaved headlines
     $.get("/api/headlines?saved=false").then(function(data) {
-      console.log(data)
+
       articleContainer.empty();
       // If we have headlines, render them to the page
       if (data && data.length) {
@@ -99,6 +99,7 @@ $(document).ready(function() {
 
     articleToSave.saved = true;
     // Using a patch method to be semantic since this is an update to an existing record in our collection
+    console.log(articleToSave)
     $.ajax({
       method: "PUT",
       url: "/api/headlines/" + articleToSave._id,

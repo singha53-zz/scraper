@@ -11,6 +11,7 @@ $(document).ready(function() {
   function initPage() {
     // Run an AJAX request for any unsaved headlines
     $.get("/api/headlines?saved=false").then(function(data) {
+      console.log(data)
       articleContainer.empty();
       // If we have headlines, render them to the page
       if (data && data.length) {

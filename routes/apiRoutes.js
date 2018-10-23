@@ -36,13 +36,23 @@ module.exports = function (app) {
       result.summary = $(element).find("p").text().trim();
 
       if (result.headline !== '' && result.summary !== ''){
-			db.Article.find({headline: result.headline}, function(err, data) {
-				if (data.length === 0) {
+			db.Article.findOne({headline: result.headline}, function(err, data) {
+        if(err){
+          console.log(err)
+        } else {
+          if (data === null) {
           result.saved = false;
-					db.Article.create(result, function(err, data) {
-						if (err) throw err;
-					});
+					db.Article.create(result)
+           .then(function(dbArticle) {
+          // View the added result in the console
+          console.log(dbArticle);
+          })
+          .catch(function(err) {
+          // If an error occurred, send it to the client
+          return res.json(err);
+          });
 				}
+        }
 			});
       }
 
@@ -53,8 +63,38 @@ module.exports = function (app) {
   });
   });
 
-  app.get("/api/headlines?saved=false", function(req, res){
+  app.get("/api/headlines", function(req, res){
+    console.log(req.query.saved)
+    if(req.query.saved === true){
+      console.log('hi')
+    } else {
+   db.Article.find({})
+    .then(function(dbArticle) {
+      // If we were able to successfully find Articles, send them back to the client
+      console.log(dbArticle)
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+    }
+  })
 
+  app.get("/api/headlines?saved=false", function(req, res){
+    console.log(req)
+    console.log(res)
+    console.log("hi")
+   db.Article.find({})
+    .then(function(dbArticle) {
+      // If we were able to successfully find Articles, send them back to the client
+      console.log(dbArticle)
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
   });
 
   app.get("api/clear", function(req, res){

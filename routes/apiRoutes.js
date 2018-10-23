@@ -13,6 +13,10 @@ module.exports = function (app) {
   app.get('/', function (req, res) {
     res.render('home');
   });
+  // saved pages
+  app.get('/saved', function (req, res) {
+    res.render('home');
+  });
 
   app.get("/api/headlines/:id", function(req, res){
 
@@ -41,7 +45,6 @@ module.exports = function (app) {
           console.log(err)
         } else {
           if (data === null) {
-          result.saved = false;
 					db.Article.create(result)
            .then(function(dbArticle) {
           // View the added result in the console
@@ -65,13 +68,22 @@ module.exports = function (app) {
 
   app.get("/api/headlines", function(req, res){
     console.log(req.query.saved)
+    console.log(req.body)
     if(req.query.saved === true){
-      console.log('hi')
-    } else {
-   db.Article.find({})
+      db.Article.findOneAndUpdate(req.body)
     .then(function(dbArticle) {
       // If we were able to successfully find Articles, send them back to the client
       console.log(dbArticle)
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+    } else {
+   db.Article.find({saved: false})
+    .then(function(dbArticle) {
+      // If we were able to successfully find Articles, send them back to the client
       res.json(dbArticle);
     })
     .catch(function(err) {
@@ -79,22 +91,6 @@ module.exports = function (app) {
       res.json(err);
     });
     }
-  })
-
-  app.get("/api/headlines?saved=false", function(req, res){
-    console.log(req)
-    console.log(res)
-    console.log("hi")
-   db.Article.find({})
-    .then(function(dbArticle) {
-      // If we were able to successfully find Articles, send them back to the client
-      console.log(dbArticle)
-      res.json(dbArticle);
-    })
-    .catch(function(err) {
-      // If an error occurred, send it to the client
-      res.json(err);
-    });
   });
 
   app.get("api/clear", function(req, res){

@@ -59,7 +59,7 @@ module.exports = function (app) {
 					db.Article.create(result)
            .then(function(dbArticle) {
           // View the added result in the console
-          console.log(dbArticle);
+          // console.log(dbArticle);
           })
           .catch(function(err) {
           // If an error occurred, send it to the client
@@ -81,7 +81,15 @@ module.exports = function (app) {
     console.log(req.query.saved)
     console.log(req.body)
     if(req.query.saved === true){
-     
+        db.Article.find({saved: true})
+    .then(function(dbArticle) {
+      // If we were able to successfully find Articles, send them back to the client
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
     } else {
    db.Article.find({saved: false})
     .then(function(dbArticle) {
@@ -95,9 +103,9 @@ module.exports = function (app) {
     }
   });
 
-  app.get("api/clear", function(req, res){
+  // app.get("api/clear", function(req, res){
 
-  });
+  // });
 
   app.get("/api/notes/:id", function(req, res){
 

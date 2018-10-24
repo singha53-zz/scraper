@@ -20,10 +20,17 @@ module.exports = function (app) {
 
   // save article to database by changed saved field to true
   app.put("/api/headlines/:id", function(req, res){
-  db.Article.updateOne({id: req.body._id},{$set: {saved:true}})
-  .catch(err => {
-    console.log(err)
-  })
+    var saved = req.body.saved == 'true'
+    if(saved){
+    db.Article.updateOne({id: req.body._id},{$set: {saved:true}}, function(err, result){
+    if (err) {
+      console.log(err)
+    } else {
+      return res.send(true)
+    }
+    })
+}
+
   });
 
   // scrape articles

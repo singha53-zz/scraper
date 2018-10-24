@@ -105,6 +105,7 @@ $(document).ready(function() {
       url: "/api/headlines/" + articleToSave._id,
       data: articleToSave
     }).then(function(data) {
+      console.log(data)
       // If the data was saved successfully
       if (data.saved) {
         // Run the initPage function again. This will reload the entire list of articles

@@ -6,7 +6,9 @@ const mongoose = require("mongoose");
 const db = require("../models");
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/nytimes", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost/nytimes", { useNewUrlParser: true });
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 module.exports = function (app) {
   // home page

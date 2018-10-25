@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const db = require("../models");
 
 // Connect to the Mongo DB
-// mongoose.connect("mongodb://localhost/nytimes", { useNewUrlParser: true });
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
@@ -77,11 +76,11 @@ module.exports = function (app) {
 					db.Article.create(result)
            .then(function(dbArticle) {
           // View the added result in the console
-          // console.log(dbArticle);
+          console.log(dbArticle);
           })
           .catch(function(err) {
           // If an error occurred, send it to the client
-          return res.json(err);
+          console.log(err)
           });
 				}
         }
@@ -91,36 +90,54 @@ module.exports = function (app) {
       });
 
     // If we were able to successfully scrape and save an Article, send a message to the client
-    res.send("Scrape Completed!");
+    res.send("Scrape completed!");
   });
   });
 
-  app.get("/api/headlines", function(req, res){
-    console.log(req.query.saved)
+  // get back all notes for a given article
+  app.get("/api/notes/:id", function(req, res){
+    // res.send(true)
+    db.Article.findOne({_id: req.params.id})
+    .populate("note")
+    .then(function(dbArticle){
+      console.log(dbArticle.note)
+      res.json(dbArticle.note)
+    })
+    .catch(function(err){
+      res.json(err)
+    })
+  });
+
+  // add note to an article
+  app.post("/api/notes", function(req, res){
     console.log(req.body)
-    if(req.query.saved === true){
-        db.Article.find({saved: true})
-    .then(function(dbArticle) {
-      // If we were able to successfully find Articles, send them back to the client
-      res.json(dbArticle);
+    db.Note.create({ noteText: req.body.noteText })
+    .then(function(dbNote){
+      console.log('dbNote:' + dbNote)
+      return db.Article.findOneAndUpdate({ _id:req.body._headlineId}, {note: dbNote._id}, {new: true})
     })
-    .catch(function(err) {
-      // If an error occurred, send it to the client
-      res.json(err);
-    });
-    } else {
-   db.Article.find({saved: false})
-    .then(function(dbArticle) {
-      // If we were able to successfully find Articles, send them back to the client
-      res.json(dbArticle);
+    .then(function(dbArticle){
+      console.log('dbArticle:'+dbArticle)
+      res.json(dbArticle)
     })
-    .catch(function(err) {
-      // If an error occurred, send it to the client
+    .catch(function(err){
       res.json(err);
-    });
-    }
+    })
   });
 
+  // delete note form article
+  app.delete("/api/notes/:id", function(req, res){
+    console.log('reqbody:' + JSON.stringify(req.params.id))
+    db.Note.deleteOne({_id: req.params.id}, function(err, result){
+      if (err) {
+        console.log(err)
+      } else {
+        return res.send(true)
+      }
+    });
+  });
+
+  // clear all articles from database
   app.get("/api/clear", function(req, res){
     console.log(req.body)
     db.Article.deleteMany({}, function(err, result){
@@ -131,13 +148,5 @@ module.exports = function (app) {
         res.send(true)
       }
     })
-  });
-
-  app.get("/api/notes/:id", function(req, res){
-
-  });
-
-  app.get("/api/notes", function(req, res){
-
   });
 }

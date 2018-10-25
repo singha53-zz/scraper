@@ -5,9 +5,9 @@ $(document).ready(function() {
   // Adding event listeners for dynamically generated buttons for deleting articles,
   // pulling up article notes, saving article notes, and deleting article notes
   $(document).on("click", ".btn.delete", handleArticleDelete);
-  // $(document).on("click", ".btn.notes", handleArticleNotes);
-  // $(document).on("click", ".btn.save", handleNoteSave);
-  // $(document).on("click", ".btn.note-delete", handleNoteDelete);
+  $(document).on("click", ".btn.notes", handleArticleNotes);
+  $(document).on("click", ".btn.save", handleNoteSave);
+  $(document).on("click", ".btn.note-delete", handleNoteDelete);
   $(".clear").on("click", handleArticleClear);
 
   function initPage() {
@@ -143,8 +143,10 @@ $(document).ready(function() {
     var currentArticle = $(this)
       .parents(".card")
       .data();
+    console.log(currentArticle)
     // Grab any notes with this headline/article id
     $.get("/api/notes/" + currentArticle._id).then(function(data) {
+      console.log(data)
       // Constructing our initial HTML to add to the notes modal
       var modalText = $("<div class='container-fluid text-center'>").append(
         $("<h4>").text("Notes For Article: " + currentArticle._id),
@@ -153,6 +155,7 @@ $(document).ready(function() {
         $("<textarea placeholder='New Note' rows='4' cols='60'>"),
         $("<button class='btn btn-success save'>Save Note</button>")
       );
+      console.log(modalText)
       // Adding the formatted HTML to the note modal
       bootbox.dialog({
         message: modalText,
@@ -162,6 +165,7 @@ $(document).ready(function() {
         _id: currentArticle._id,
         notes: data || []
       };
+      console.log('noteData:' + JSON.stringify(noteData))
       // Adding some information about the article and article notes to the save button for easy access
       // When trying to add a new note
       $(".btn.save").data("article", noteData);

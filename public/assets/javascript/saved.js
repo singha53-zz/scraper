@@ -4,11 +4,11 @@ $(document).ready(function() {
   var articleContainer = $(".article-container");
   // Adding event listeners for dynamically generated buttons for deleting articles,
   // pulling up article notes, saving article notes, and deleting article notes
-  $(document).on("click", ".btn.delete", handleArticleDelete);
-  $(document).on("click", ".btn.notes", handleArticleNotes);
-  $(document).on("click", ".btn.save", handleNoteSave);
-  $(document).on("click", ".btn.note-delete", handleNoteDelete);
-  $(".clear").on("click", handleArticleClear);
+  // $(document).on("click", ".btn.delete", handleArticleDelete);
+  // $(document).on("click", ".btn.notes", handleArticleNotes);
+  // $(document).on("click", ".btn.save", handleNoteSave);
+  // $(document).on("click", ".btn.note-delete", handleNoteDelete);
+  // $(".clear").on("click", handleArticleClear);
 
   function initPage() {
     // Empty the article container, run an AJAX request for any saved headlines

@@ -21,6 +21,7 @@ module.exports = function (app) {
   // saved pages
   app.get('/saved', function (req, res) {
     db.Article.find({saved: true}, function(err, data){
+      console.log(data)
       res.render('saved', { home:false, article : data });
     })
   });
@@ -29,7 +30,7 @@ module.exports = function (app) {
   app.put("/api/headlines/:id", function(req, res){
     var saved = req.body.saved == 'true'
     if(saved){
-    db.Article.updateOne({id: req.body._id},{$set: {saved:true}}, function(err, result){
+    db.Article.updateOne({_id: req.body._id},{$set: {saved:true}}, function(err, result){
     if (err) {
       console.log(err)
     } else {

@@ -20,7 +20,9 @@ module.exports = function (app) {
 
   // saved pages
   app.get('/saved', function (req, res) {
-    res.render('saved');
+    db.Article.find({saved: true}, function(err, data){
+      res.render('saved', { home:false, article : data });
+    })
   });
 
   // save article to database by changed saved field to true

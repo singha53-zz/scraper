@@ -1,16 +1,6 @@
 {{> header }}
 
-<div class="jumbotron text-center">
-  <div class="overlay">
-  </div>
-  <div class="background-image">
-  </div>
-  <div class="caption">
-    <h1>Mongo Scraper</h1>
-    <p>New York Times Edition</p>
-  </div>
-</div>
- <div class="container-fluid article-container">
+<div class="container-fluid article-container">
 {{#if article}}
   {{#each article}}
   <div data-_id={{this._id}} class="card">

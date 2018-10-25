@@ -10,8 +10,20 @@
     <p>New York Times Edition</p>
   </div>
 </div>
-<div class="container-fluid article-container">
- 
+ <div class="container-fluid article-container">
+{{#if article}}
+  {{#each article}}
+  <div data-_id={{this._id}} class="card">
+    <div class="card-header">
+      <h3>
+        <a class="article-link" target="_blank" rel="noopener noreferrer" href={{this.link}}>{{this.headline}}</a>
+        <a class="btn btn-success save">Save Article</a>
+      </h3>
+    </div>
+    <div class="card-body">{{this.summary}}</div>
+  </div>
+  {{/each}}
+{{else}}
   <div class='alert alert-warning text-center'>
     <h4>Uh Oh. Looks like we don't have any new articles.</h4>
   </div>
@@ -28,7 +40,9 @@
       </h4>
     </div>
   </div>
+{{/if}}
 </div>
+
 
 {{> footer }}
 

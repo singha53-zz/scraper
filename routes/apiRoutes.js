@@ -13,8 +13,11 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 module.exports = function (app) {
   // home page
   app.get('/', function (req, res) {
-    res.render('home', {home:true});
+    db.Article.find({saved: false}, function(err, data){
+      res.render('home', { home:true, article : data });
+    })
   });
+
   // saved pages
   app.get('/saved', function (req, res) {
     res.render('saved');

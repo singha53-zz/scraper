@@ -75,14 +75,14 @@ module.exports = function (app) {
           if (data === null) {
 					db.Article.create(result)
            .then(function(dbArticle) {
-          // View the added result in the console
-          console.log(dbArticle);
+             console.log(dbArticle)
           })
           .catch(function(err) {
           // If an error occurred, send it to the client
           console.log(err)
           });
 				}
+        console.log(data)
         }
 			});
       }

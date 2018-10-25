@@ -123,8 +123,8 @@ $(document).ready(function() {
       // and let the user know how many unique articles we were able to save
       // initPage();
       console.log(data)
-      // data.message = "Scrape completed!"
-      // bootbox.alert($("<h3 class='text-center m-top-80'>").text(data.message));
+      data.message = "Scrape completed!"
+      bootbox.alert($("<h3 class='text-center m-top-80'>").text(data.message));
       location.reload();
     });
   }

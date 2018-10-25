@@ -14,14 +14,13 @@ module.exports = function (app) {
   // home page
   app.get('/', function (req, res) {
     db.Article.find({saved: false}, function(err, data){
-      res.render('home', { home:true, article : data });
+      res.render('home', { home: true, article : data });
     })
   });
 
   // saved pages
   app.get('/saved', function (req, res) {
     db.Article.find({saved: true}, function(err, data){
-      console.log(data)
       res.render('saved', { home:false, article : data });
     })
   });
@@ -92,7 +91,7 @@ module.exports = function (app) {
       });
 
     // If we were able to successfully scrape and save an Article, send a message to the client
-    res.send("Scrape Complete");
+    res.send("Scrape Completed!");
   });
   });
 
@@ -122,9 +121,17 @@ module.exports = function (app) {
     }
   });
 
-  // app.get("api/clear", function(req, res){
-
-  // });
+  app.get("/api/clear", function(req, res){
+    console.log(req.body)
+    db.Article.deleteMany({}, function(err, result){
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(result)
+        res.send(true)
+      }
+    })
+  });
 
   app.get("/api/notes/:id", function(req, res){
 

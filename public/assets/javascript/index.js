@@ -3,10 +3,10 @@ $(document).ready(function() {
   // Setting a reference to the article-container div where all the dynamic content will go
   // Adding event listeners to any dynamically generated "save article"
   // and "scrape new article" buttons
-  // var articleContainer = $(".article-container");
+  var articleContainer = $(".article-container");
   $(document).on("click", ".btn.save", handleArticleSave);
   $(document).on("click", ".scrape-new", handleArticleScrape);
-  // $(".clear").on("click", handleArticleClear);
+  $(".clear").on("click", handleArticleClear);
 
   function initPage() {
     // Run an AJAX request for any unsaved headlines
@@ -107,7 +107,7 @@ $(document).ready(function() {
     }).then(function(data) {
       console.log(data)
       // If the data was saved successfully
-      if (data.saved) {
+      if (data) {
         // Run the initPage function again. This will reload the entire list of articles
         // initPage();
         window.load = "/"
@@ -122,6 +122,7 @@ $(document).ready(function() {
       // already in our collection, re render the articles on the page
       // and let the user know how many unique articles we were able to save
       // initPage();
+      console.log(data)
       data.message = "Scrape completed!"
       bootbox.alert($("<h3 class='text-center m-top-80'>").text(data.message));
       window.location = "/"
@@ -129,9 +130,10 @@ $(document).ready(function() {
   }
 
   function handleArticleClear() {
-    $.get("api/clear").then(function() {
+    $.get("api/clear").then(function(data) {
+      console.log(data)
       articleContainer.empty();
-      initPage();
+      // initPage();
     });
   }
 });

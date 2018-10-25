@@ -8,7 +8,7 @@ $(document).ready(function() {
   // $(document).on("click", ".btn.notes", handleArticleNotes);
   // $(document).on("click", ".btn.save", handleNoteSave);
   // $(document).on("click", ".btn.note-delete", handleNoteDelete);
-  // $(".clear").on("click", handleArticleClear);
+  $(".clear").on("click", handleArticleClear);
 
   function initPage() {
     // Empty the article container, run an AJAX request for any saved headlines
@@ -206,9 +206,10 @@ $(document).ready(function() {
 
   function handleArticleClear() {
     $.get("api/clear")
-      .then(function() {
+      .then(function(data) {
         articleContainer.empty();
-        initPage();
+        // initPage();
+        window.load = "/saved"
       });
   }
 });

@@ -213,7 +213,7 @@ $(document).ready(function() {
       .then(function(data) {
         articleContainer.empty();
         // initPage();
-        window.load = "/saved"
+        location.reload();
       });
   }
 });

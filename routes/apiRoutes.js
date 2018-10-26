@@ -20,7 +20,7 @@ module.exports = function (app) {
   // saved pages
   app.get('/saved', function (req, res) {
     db.Article.find({saved: true}, function(err, data){
-      res.render('saved', { home:false, article : data });
+      res.render('saved', { home: false, article : data });
     })
   });
 
@@ -109,21 +109,6 @@ module.exports = function (app) {
   });
 
   // add note to an article
-  // app.post("/api/notes", function(req, res){
-  //   console.log(req.body)
-  //   db.Note.create({ noteText: req.body.noteText })
-  //   .then(function(dbNote){
-  //     console.log('dbNote:' + dbNote)
-  //     return db.Article.findOneAndUpdate({ _id:req.body._headlineId}, {note: dbNote._id}, {new: true})
-  //   })
-  //   .then(function(dbArticle){
-  //     console.log('dbArticle:'+dbArticle)
-  //     res.json(dbArticle)
-  //   })
-  //   .catch(function(err){
-  //     res.json(err);
-  //   })
-  // });
     app.post("/api/notes", function(req, res){
     console.log(req.body)
     db.Note.create({ noteText: req.body.noteText })

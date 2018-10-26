@@ -1,6 +1,6 @@
 # Scraper
 
-Burger is a a web app that lets users view and leave comments on the latest news from the New York Times.
+Scraper is a a web app that lets users view and leave comments on the latest news from the New York Times.
 
 ## Getting started
 - assuming node and npm are installed. 
@@ -19,6 +19,13 @@ $ heroku create <enter app name>
 $ heroku addons:create mongolab
 $ git push heroku master
 ```
+## Walkthroughs
+### Scrape articles, save articles, open an article on a new tab and clear articles
+![GIF](https://github.com/singha53/scraper/blob/master/public/assets/images/scrape_save_clear.gif)
+
+### Adding and remvoing notes to saved articles then clearing articles
+![GIF](https://github.com/singha53/scraper/blob/master/public/assets/images/save_notes_clear.gif)
+
 ## Programming/Scripting Languages
 ### Front-end
 - HTML, CSS (Bootstrap)

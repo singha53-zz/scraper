@@ -19,9 +19,6 @@ $ heroku create <enter app name>
 $ heroku addons:create mongolab
 $ git push heroku master
 ```
-## Walkthroughs
-![GIF](https://github.com/singha53/burger/blob/master/public/assets/images/burger.gif)
-
 ## Programming/Scripting Languages
 ### Front-end
 - HTML, CSS (Bootstrap)

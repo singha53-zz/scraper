@@ -44,7 +44,7 @@ branch. Pull requests are warmly welcome.
 
 ## Links
 
-- Repository: https://github.com/singha53/https://github.com/singha53/scraper/
+- Repository: https://github.com/singha53/scraper/
 - Deployed site: https://scraper-uft.herokuapp.com/
 
 ## Licensing

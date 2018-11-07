@@ -1,5 +1,4 @@
 const axios = require('axios');
-const authController = require('../controllers/controller.js');
 const cheerio = require("cheerio");
 const mongoose = require("mongoose");
 // Require all models
